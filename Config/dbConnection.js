@@ -1,6 +1,6 @@
 const mysql = require('mysql2/promise');
 let pool; // Global connection pool
-// Optional static credentials (can be empty)
+
 const USER = '', PASS = '';
 async function connect({ host = 'localhost', port = 3306, dbName = 'test' }) {
   const user = USER || 'root';
