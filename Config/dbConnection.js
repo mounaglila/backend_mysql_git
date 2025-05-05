@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 const USER = '', PASS = '';
 let pool;
-async function connect({ host = 'localhost', port = 3306, dbName = 'SchoolDB' }) {
+async function connect({ host = 'localhost', port = 3306, dbName = 'ma_base' }) {
   try {
     if (!pool) {
       console.log(`Connecting to MySQL at ${host}:${port}, database: ${dbName}`);
