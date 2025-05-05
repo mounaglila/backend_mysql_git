@@ -1,22 +1,16 @@
 const mysql = require('mysql2/promise');
 const USER = '', PASS = '';
-let pool;
-async function connect({ host = 'localhost', port = 3306, dbName = 'ma_base' }) {
+let connection;
+async function connect({ host = 'localhost', port = 3306, dbName = 'ecommerce_db' }) {
+  const auth = USER && PASS ? `${USER}:${PASS}@` : '';
   try {
-    if (!pool) {
-      console.log(`Connecting to MySQL at ${host}:${port}, database: ${dbName}`);
-      pool = mysql.createPool({
-        host,
-        port,
-        user: USER,
-        password: PASS,
-        database: dbName,
-        waitForConnections: true,
-        connectionLimit: 10,
-        queueLimit: 0
-      });
+    if (connection && connection.connection && connection.connection.state !== 'disconnected') {
+      return connection;
     }
-    return pool;
+    console.log(`→ Connecting to MySQL at ${host}:${port}, database: ${dbName}`);
+    connection = await mysql.createConnection({host,port,user: USER || 'root',password: PASS || '',database: dbName});
+    console.log('→ MySQL connection established');
+    return connection;
   } catch (err) {
     console.error('Connection failed:', err);
     throw err;
