@@ -254,7 +254,7 @@ echo routes.js created
 cd /d "%BACKEND_DIR%"
 echo // Installing dependencies, please wait!
 :: Run npm install 
-call npm install express mongodb cors
+call npm install express mysql2 cors
 echo Dependencies installed successfully!
 :: Define script path
 set "SCRIPT_PATH=%~dp0backend"
